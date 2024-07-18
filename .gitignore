@@ -1,0 +1,10 @@
+/*
+
+!/.gitignore
+
+!/pubspec.yaml
+!/pubspec.lock
+!/.metadata
+
+!/Readme.md
+!/lib
