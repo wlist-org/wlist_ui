@@ -9,22 +9,18 @@ import 'generated/l10n.dart';
 
 void main() async {
   runApp(const WlistApp());
-  try {
-    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      WidgetsFlutterBinding.ensureInitialized();
-      await windowManager.ensureInitialized();
-      WindowOptions windowOptions = WindowOptions(
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    WidgetsFlutterBinding.ensureInitialized();
+    windowManager.ensureInitialized().then((_) => {
+      windowManager.waitUntilReadyToShow(WindowOptions(
         size: const Size(800, 600),
         center: true,
-        minimumSize: const Size(400, 600),
+        minimumSize: const Size(300, 400),
         title: S.current.title,
-      );
-      windowManager.waitUntilReadyToShow(windowOptions, () async {
-        await windowManager.show();
-        await windowManager.focus();
-      });
-    }
-  } catch (_) {
+      ))
+    })
+    .then((_) => windowManager.show())
+    .then((_) => windowManager.focus());
   }
 }
 
