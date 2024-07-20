@@ -35,10 +35,14 @@ class WlistApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.red,
-      ),
-      localizationsDelegates: const [S.delegate],
+      themeMode: ThemeMode.system,
+      theme: ThemeData(colorSchemeSeed: Colors.lightBlue, brightness: Brightness.light),
+      darkTheme: ThemeData(colorSchemeSeed: Colors.indigo, brightness: Brightness.dark),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: S.delegate.supportedLocales,
       initialRoute: "/login",
       routes: {
