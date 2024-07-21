@@ -1,5 +1,20 @@
 {
   "@@locale": "en",
 
-  "title": "Wlist"
+  "title": "Wlist",
+
+
+  "login": "Login",
+
+  "login_passport": "Passport",
+  "login_passport_hint": "Please enter your email",
+  "login_password": "Password",
+  "login_password_hint": "Please enter your password",
+  "login_button": "Login",
+  "login_register": "Register.",
+  "login_forget_password": "Forget password?",
+
+  "login_passport_empty": "Require passport.",
+  "login_password_empty": "Require password.",
+  "login_error": "Passport or password is incorrect."
 }

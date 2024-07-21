@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wlist_ui/widgets/input_textbox.dart';
+import 'package:wlist_ui/widgets/page_margin.dart';
+
+import '../generated/l10n.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -8,57 +12,110 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  int _counter = 0;
+  final InputTextStatus passportStatus = InputTextStatus();
+  final InputTextStatus passwordStatus = InputTextStatus();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  bool _processing = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).canvasColor,
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: heightMax(context, 0.04, 24)),
+              child: Text(
+                S.of(context).login,
+                style: Theme.of(context).textTheme.headlineLarge,
+              )
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: widthMax(context, 0.12, 24)) + EdgeInsets.only(bottom: heightMax(context, 0.04, 16)),
+                  child: InputTextbox(
+                    labelText: S.of(context).login_passport,
+                    hintText: S.of(context).login_passport_hint,
+                    icon: const Icon(Icons.account_circle),
+                    status: passportStatus,
+                    checker: (value) => value.isEmpty ? S.of(context).login_passport_empty : null,
+                    enabled: !_processing,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: widthMax(context, 0.12, 24)) + EdgeInsets.only(bottom: heightMax(context, 0.04, 16)),
+                  child: InputTextbox(
+                    labelText: S.of(context).login_password,
+                    hintText: S.of(context).login_password_hint,
+                    icon: const Icon(Icons.password_rounded),
+                    password: true,
+                    status: passwordStatus,
+                    checker: (value) => value.isEmpty ? S.of(context).login_password_empty : null,
+                    enabled: !_processing,
+                  ),
+                ),
+              ]
             ),
-          ],
+            OutlinedButton(
+              onPressed: _processing ? null : () {
+                bool passport = passportStatus.isError();
+                bool password = passwordStatus.isError();
+                if (!_processing && !passport && !password) {
+                  setState(() => _processing = true);
+                  final String passport = passportStatus.text;
+                  final String password = passwordStatus.text;
+                  _doLogin(passport, password);
+                }
+              },
+              child: Text(
+                  S.of(context).login_button,
+                  style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: _doRegister,
+                  child: Text(
+                    S.of(context).login_register,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: widthMin(context, 0.02, 12)),
+                  child: const Text("|"),
+                ),
+                TextButton(
+                  onPressed: _doForgetPassword,
+                  child: Text(
+                    S.of(context).login_forget_password,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            )
+         ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      )
     );
+  }
+
+  void _doLogin(String passport, String password) async {
+    // TODO
+    print(passport);
+    print(password);
+    Future.delayed(const Duration(seconds: 3), () => setState(() => _processing = false));
+  }
+
+  void _doRegister() async {
+    // TODO
+  }
+
+  void _doForgetPassword() async {
+    // TODO
   }
 }

@@ -1,5 +1,20 @@
 {
   "@@locale": "zh",
 
-  "title": "Wlist"
+  "title": "Wlist",
+
+
+  "login": "登录",
+
+  "login_passport": "账号",
+  "login_passport_hint": "请输入您的邮箱",
+  "login_password": "密码",
+  "login_password_hint": "请输入您的密码",
+  "login_button": "登录",
+  "login_register": "注册账号",
+  "login_forget_password": "忘记密码",
+
+  "login_passport_empty": "请先输入账号",
+  "login_password_empty": "请先输入密码",
+  "login_error": "账号或密码错误"
 }
