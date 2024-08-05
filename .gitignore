@@ -1,10 +1,14 @@
 /*
 
+### Flutter ###
 !/.gitignore
-
+!/.metadata
 !/pubspec.yaml
 !/pubspec.lock
-!/.metadata
 
+### Project ###
 !/Readme.md
 !/lib
+## rust ##
+!/flutter_rust_bridge.yaml
+!/rust

@@ -3,20 +3,32 @@ description: "The ui part of wlist."
 version: 0.0.1
 publish_to: 'none'
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ^3.4.3
 
 
 dependencies:
+  # flutter
   flutter:
     sdk: flutter
+  ## l18n
   flutter_localizations:
     sdk: flutter
+  ## window
   window_manager: ^0.3.9
+  #  device_info_plus: ^10.1.0
+  # rust
+  rust_lib_wlist_ui:
+    path: rust_builder
+  flutter_rust_bridge: 2.1.0
 
 dev_dependencies:
+  # flutter
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  # rust
+  integration_test:
+    sdk: flutter
 
 
 flutter:
