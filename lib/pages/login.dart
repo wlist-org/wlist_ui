@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/widgets/input_textbox.dart';
 import 'package:wlist_ui/widgets/page_margin.dart';
 
@@ -6,6 +7,11 @@ import '../generated/l10n.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  void initWindow() {
+    windowManager.setMinimumSize(const Size(300, 400));
+    windowManager.setSize(const Size(480, 600), animate: true);
+  }
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -63,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: _processing ? null : () {
                 bool passport = passportStatus.isError();
                 bool password = passwordStatus.isError();
-                if (!_processing && !passport && !password) {
+                if (!passport && !password) {
                   setState(() => _processing = true);
                   final String passport = passportStatus.text;
                   final String password = passwordStatus.text;
