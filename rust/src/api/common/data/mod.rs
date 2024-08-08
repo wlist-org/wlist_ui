@@ -1,0 +1,35 @@
+pub mod storages;
+pub mod files;
+pub mod trashes;
+
+#[flutter_rust_bridge::frb(non_opaque)]
+#[derive(o2o::o2o)]
+#[map_owned(wlist_native::common::data::Direction)]
+pub enum FDirection {
+    ASCEND,
+    DESCEND,
+}
+
+#[flutter_rust_bridge::frb(opaque)]
+pub struct FEither<L, R> {
+    either: either::Either<L, R>,
+}
+
+impl<A, B, L, R> From<either::Either<A, B>> for FEither<L, R> where A: Into<L>, B: Into<R> {
+    #[inline]
+    fn from(value: either::Either<A, B>) -> Self {
+        Self { either: value.map_either(Into::into, Into::into) }
+    }
+}
+
+impl<L, R> FEither<L, R> {
+    #[inline]
+    pub fn left(&self) -> Option<&L> {
+        self.either.as_ref().left()
+    }
+
+    #[inline]
+    pub fn right(&self) -> Option<&R> {
+        self.either.as_ref().right()
+    }
+}

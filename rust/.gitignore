@@ -8,3 +8,4 @@
 ### Project ###
 !/src
 /src/frb_generated.rs
+!/.run

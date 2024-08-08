@@ -6,5 +6,26 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib", "staticlib"]
 
+[dependencies.flutter_rust_bridge]
+version = "=2.2.0"
+default-features = false
+features = [
+    "rust-async",
+    "dart-opaque",
+    "thread-pool",
+    "anyhow",
+    "chrono",
+]
+
 [dependencies]
-flutter_rust_bridge = "=2.1.0"
+wlist_native = { path = "../../wlist_native" }
+anyhow = "^1.0"
+
+# common
+o2o = "~0.4"
+chrono = "~0.4"
+indexmap = "^2.3"
+hashbrown = "~0.14"
+# core
+deadpool = "~0.12"
+either = "^1.13"
