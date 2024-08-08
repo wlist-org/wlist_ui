@@ -4,6 +4,13 @@
   "title": "Wlist",
 
 
+  "boot": "Initializing...",
+  "boot_check_version": "Loading...",
+
+
+  "version_unavailable": "Current version ({version}) is no longer supported. Please update your app version.\n{url}",
+
+
   "login": "Login",
 
   "login_passport": "Passport",

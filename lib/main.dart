@@ -4,18 +4,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:wlist_ui/pages/boot.dart';
 import 'package:wlist_ui/pages/login.dart';
+import 'package:wlist_ui/pages/version_unavailable.dart';
 
 import 'generated/l10n.dart';
-import 'generated/rust/frb_generated.dart';
 
 bool isDesktop = !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
+const String currentVersion = "0.0.1";
+const String updateUrl = "https://"; // TODO: update url
+
 void main() async {
-  await RustLib.init();
   runApp(const WlistApp());
   if (isDesktop) {
-    WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
     await windowManager.waitUntilReadyToShow(WindowOptions(
       center: true,
@@ -42,8 +44,9 @@ class WlistApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      initialRoute: "/login",
       routes: {
+        "/": (context) => const BootPage()..initWindow(),
+        "/version_unavailable": (context) => const VersionUnavailablePage()..initWindow(),
         "/login": (context) => const LoginPage()..initWindow(),
       },
     );

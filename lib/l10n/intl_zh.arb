@@ -4,6 +4,13 @@
   "title": "Wlist",
 
 
+  "boot": "初始化程序……",
+  "boot_check_version": " 正在加载……",
+
+
+  "version_unavailable": "当前版本（{version}）已不再受支持，请升级到最新版本\n{url}",
+
+
   "login": "登录",
 
   "login_passport": "账号",
