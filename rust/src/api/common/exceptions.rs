@@ -9,11 +9,19 @@ macro_rules! define_exception {
     ($exception: ident $origin: ident() $msg: literal) => {
         #[::flutter_rust_bridge::frb(mirror($origin), opaque)]
         pub struct $exception {}
+        #[flutter_rust_bridge::frb(sync, getter)]
+        pub fn $origin() -> $origin {
+            unreachable!()
+        }
     };
     ($exception: ident $origin: ident($($field: ident: $ty: ty),+) |&$self: ident, $f: ident| $write: expr) => {
         #[::flutter_rust_bridge::frb(mirror($origin), opaque)]
         pub struct $exception {
             $($field: $ty),+
+        }
+        #[flutter_rust_bridge::frb(sync, getter)]
+        pub fn $origin() -> $origin {
+            unreachable!()
         }
     };
 }

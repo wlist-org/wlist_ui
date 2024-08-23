@@ -9,7 +9,7 @@ pub mod account {
 }
 
 pub mod register {
-    pub async fn register_as_guest(device_id: String, passport: String) -> anyhow::Result<String> {
+    pub async fn register_as_guest(device_id: String, passport: String) -> anyhow::Result<Option<String>> {
         wlist_native::web::register::as_guest::register_as_guest(device_id, passport).await
     }
 
