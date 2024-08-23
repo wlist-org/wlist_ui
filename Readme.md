@@ -2,15 +2,14 @@
 
 The ui part of wlist.
 
-## Getting Started
+## Build
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository and [`wlist_native`](https://github.com/wlist_org/wlist_native).
+2. Prepare cargo tool: `cargo install flutter_rust_bridge_codegen`.
+3. Run `flutter_rust_bridge_codegen integrate`.
+4. Rollback all local changes.
+5. Run `mkdir ./lib/generated/rust`.
+6. Prepare cargo tool: `cargo install cargo-expand`.
+7. Run `flutter_rust_bridge_codegen generate`.
+8. Run `flutter create --platforms=windows,macos,linux,android,ios .`.
+9. Finish and enjoy it!
