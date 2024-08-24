@@ -1,3 +1,5 @@
+#![allow(dead_code, non_snake_case)]
+
 use std::borrow::Cow;
 use std::sync::Arc;
 
