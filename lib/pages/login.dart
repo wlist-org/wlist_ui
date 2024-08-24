@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:wlist_ui/main.dart';
 import 'package:wlist_ui/widgets/input_textbox.dart';
 import 'package:wlist_ui/widgets/page_margin.dart';
 
@@ -9,8 +10,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   void initWindow() {
-    windowManager.setMinimumSize(const Size(300, 400));
-    windowManager.setSize(const Size(480, 600), animate: true);
+    if (isDesktop) {
+      windowManager.setMinimumSize(const Size(300, 400));
+      windowManager.setSize(const Size(480, 600), animate: true);
+    }
   }
 
   @override

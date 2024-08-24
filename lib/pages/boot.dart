@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/generated/rust/api/common.dart';
 import 'package:wlist_ui/generated/rust/api/common/exceptions.dart';
 import 'package:wlist_ui/generated/rust/api/web/account.dart';
 import 'package:wlist_ui/main.dart';
+import 'package:wlist_ui/utils.dart';
 import 'package:wlist_ui/widgets/loading_text.dart';
 
 import '../generated/l10n.dart';
@@ -16,8 +17,10 @@ class BootPage extends StatefulWidget {
   const BootPage({super.key});
 
   void initWindow() {
-    windowManager.setMinimumSize(const Size(300, 400));
-    windowManager.setSize(const Size(480, 600));
+    if (isDesktop) {
+      windowManager.setMinimumSize(const Size(300, 400));
+      windowManager.setSize(const Size(480, 600));
+    }
   }
 
   @override
@@ -45,7 +48,7 @@ class _BootPageState extends State<BootPage> {
     await RustLib.init();
     setState(() => text = S.of(context).boot);
     var data = await getApplicationDocumentsDirectory();
-    var cache = await getApplicationSupportDirectory(); // The native cache is just support directory now.
+    var cache = await getApplicationSupportDirectory(); // The native cache directory only contains support files now.
     await initialize(dataDirectory: data.path, cacheDirectory: cache.path);
     setState(() => text = S.of(context).boot_check_version);
     var version = FVersionState.latest; // TODO: await checkVersion();
@@ -56,14 +59,24 @@ class _BootPageState extends State<BootPage> {
       var userId = await sharedPreferences.getString("web.user_id");
       var password = await sharedPreferences.getString("web.password");
       if (userId != null && password != null) {
+        setState(() => text = S.of(context).boot_login);
         try {
           await login(userId: userId, password: password);
-        } catch (e) {
-          rethrow; // TODO
+
+          target = "/"; // TODO
+        } on PasswordMismatchedError {
+          if (context.mounted) {
+            toastification.show(
+              context: context,
+              title: Text(S.of(context).login_cached_password_mismatch),
+              autoCloseDuration: toastShortTime,
+            );
+          }
+          target = "/login";
         }
+      } else {
+        target = "/login";
       }
-      // TODO: login.
-      target = "/login";
     }
     if (context.mounted) {
       Navigator.of(context).popAndPushNamed(target!);

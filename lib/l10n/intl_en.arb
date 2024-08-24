@@ -4,13 +4,14 @@
   "title": "Wlist",
 
 
+
   "boot": "Initializing...",
+
   "boot_check_version": "Loading...",
-
-
   "version_unavailable": "Current version ({version}) is no longer supported. Please update your app version.\n{url}",
 
 
+  "boot_login": "Logging in...",
   "login": "Login",
 
   "login_passport": "Passport",
@@ -23,5 +24,6 @@
 
   "login_passport_empty": "Require passport.",
   "login_password_empty": "Require password.",
-  "login_error": "Passport or password is incorrect."
+  "login_error": "Passport or password is incorrect.",
+  "login_cached_password_mismatch": "Password mismatch, please login."
 }

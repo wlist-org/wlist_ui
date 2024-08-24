@@ -4,13 +4,14 @@
   "title": "Wlist",
 
 
+
   "boot": "初始化程序……",
+
   "boot_check_version": " 正在加载……",
-
-
   "version_unavailable": "当前版本（{version}）已不再受支持，请升级到最新版本\n{url}",
 
 
+  "boot_login": "登录中……",
   "login": "登录",
 
   "login_passport": "账号",
@@ -23,5 +24,6 @@
 
   "login_passport_empty": "请先输入账号",
   "login_password_empty": "请先输入密码",
-  "login_error": "账号或密码错误"
+  "login_error": "账号或密码错误",
+  "login_cached_password_mismatch": "账号已失效，请重新登录"
 }

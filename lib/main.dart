@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/pages/boot.dart';
 import 'package:wlist_ui/pages/login.dart';
@@ -12,9 +11,6 @@ import 'package:wlist_ui/pages/version_unavailable.dart';
 import 'generated/l10n.dart';
 
 bool isDesktop = !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
-
-const String currentVersion = "0.0.1";
-const String updateUrl = "https://"; // TODO: update url
 
 void main() async {
   runApp(const WlistApp());
@@ -28,8 +24,6 @@ void main() async {
     await windowManager.focus();
   }
 }
-
-SharedPreferencesAsync sharedPreferences = SharedPreferencesAsync();
 
 class WlistApp extends StatelessWidget {
   const WlistApp({super.key});
