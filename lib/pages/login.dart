@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/main.dart';
 import 'package:wlist_ui/widgets/input_textbox.dart';
-import 'package:wlist_ui/widgets/page_margin.dart';
+import 'package:wlist_ui/utils/page_margin.dart';
 
 import '../generated/l10n.dart';
 

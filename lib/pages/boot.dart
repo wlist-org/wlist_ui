@@ -6,7 +6,7 @@ import 'package:wlist_ui/generated/rust/api/common.dart';
 import 'package:wlist_ui/generated/rust/api/common/exceptions.dart';
 import 'package:wlist_ui/generated/rust/api/web/account.dart';
 import 'package:wlist_ui/main.dart';
-import 'package:wlist_ui/utils.dart';
+import 'package:wlist_ui/utils/utils.dart';
 import 'package:wlist_ui/widgets/loading_text.dart';
 
 import '../generated/l10n.dart';

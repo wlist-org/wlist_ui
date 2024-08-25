@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/main.dart';
-import 'package:wlist_ui/utils.dart';
+import 'package:wlist_ui/utils/utils.dart';
 
 import '../generated/l10n.dart';
 
