@@ -440,6 +440,7 @@ dependencies = [
  "r2d2",
  "r2d2_sqlite",
  "rand",
+ "reqwest",
  "rmp-serde",
  "rusqlite",
  "rusqlite_migration",
@@ -2233,6 +2234,7 @@ dependencies = [
  "hashbrown 0.14.5",
  "indexmap",
  "o2o",
+ "thiserror",
  "wlist_native",
 ]
 

@@ -23,6 +23,7 @@ anyhow = "^1.0"
 
 # common
 o2o = "~0.4"
+thiserror = "^1.0"
 chrono = "~0.4"
 indexmap = "^2.3"
 hashbrown = "~0.14"

@@ -1,10 +1,12 @@
+use crate::api::common::exceptions::UniverseError;
+
 pub mod data;
 pub mod exceptions;
 pub mod versions;
 
-pub fn initialize(data_directory: String, cache_directory: String) -> anyhow::Result<()> {
-    wlist_native::common::workspace::initialize(data_directory, cache_directory)?;
-    wlist_native::common::database::initialize()
+pub fn initialize(data_directory: String, cache_directory: String) -> Result<(), UniverseError> {
+    wlist_native::common::workspace::initialize(data_directory, cache_directory).map_err(anyhow::Error::from)?;
+    wlist_native::common::database::initialize().map_err(Into::into)
 }
 
 pub(in crate::api) mod o2o {

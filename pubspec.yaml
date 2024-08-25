@@ -7,25 +7,27 @@ environment:
 
 
 dependencies:
-  # flutter
   flutter:
     sdk: flutter
-  ## basic
-  ### i18n
-  flutter_localizations:
-    sdk: flutter
-  ### window
-  window_manager: ^0.4.0
-  ### toast
-  toastification: ^2.1.0
-  ## storage
-  shared_preferences: ^2.3.1
-  path_provider: ^2.1.4
-  #  device_info_plus: ^10.1.0
   # rust
   rust_lib_wlist_ui:
     path: rust_builder
   flutter_rust_bridge: 2.3.0
+  freezed_annotation: ^2.4.4
+  # basic
+  ## i18n
+  flutter_localizations:
+    sdk: flutter
+  ## window
+  window_manager: ^0.4.0
+  ## toast
+  toastification: ^2.1.0
+  # web
+  ## device_id
+  platform_device_id_plus: ^1.0.6
+  ## storage
+  shared_preferences: ^2.3.1
+  path_provider: ^2.1.4
 
 dev_dependencies:
   # flutter
@@ -35,6 +37,8 @@ dev_dependencies:
   # rust
   integration_test:
     sdk: flutter
+  freezed: ^2.5.2
+  build_runner: ^2.4.11
 
 
 flutter:

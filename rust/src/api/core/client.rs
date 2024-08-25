@@ -1,3 +1,5 @@
+use crate::api::common::exceptions::UniverseError;
+
 pub mod users;
 pub mod storages;
 pub mod files;
@@ -16,13 +18,13 @@ pub struct WlistClient {
 }
 
 impl WlistClientManager {
-    pub async fn connect(addr: String) -> anyhow::Result<Self> {
+    pub async fn connect(addr: String) -> Result<Self, UniverseError> {
         let pool = wlist_native::core::client::WlistClientManager::new(addr).await?;
         Ok(Self { pool })
     }
 
-    pub async fn get(&self) -> anyhow::Result<WlistClient> {
-        let client = self.pool.get().await?;
+    pub async fn get(&self) -> Result<WlistClient, UniverseError> {
+        let client = self.pool.get().await.map_err(anyhow::Error::from)?;
         Ok(WlistClient { client })
     }
 }
@@ -35,8 +37,8 @@ impl WlistClient {
 
 macro_rules! define_func {
     ($func: ident($($para: ident: $ty: ty),*) -> $res: ty = $target: expr) => {
-        pub async fn $func(mut client: Option<$crate::api::core::client::WlistClient>, $($para: $ty),*) -> ::anyhow::Result<$res> {
-            $target(&mut client.as_mut().map(|c| c.inner()), $($para.into()),*).await.map(Into::into)
+        pub async fn $func(mut client: Option<$crate::api::core::client::WlistClient>, $($para: $ty),*) -> Result<$res, $crate::api::common::exceptions::UniverseError> {
+            $target(&mut client.as_mut().map(|c| c.inner()), $($para.into()),*).await.map(Into::into).map_err(Into::into)
         }
     };
 }
