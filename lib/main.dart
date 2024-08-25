@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/pages/boot.dart';
 import 'package:wlist_ui/pages/login.dart';
+import 'package:wlist_ui/pages/main.dart';
 import 'package:wlist_ui/pages/version_unavailable.dart';
 
 import 'generated/l10n.dart';
@@ -45,6 +46,7 @@ class WlistApp extends StatelessWidget {
         "/": (context) => const BootPage()..initWindow(),
         "/version_unavailable": (context) => const VersionUnavailablePage()..initWindow(),
         "/login": (context) => const LoginPage()..initWindow(),
+        "/main": (context) => const MainPage()..initWindow(),
       },
     );
   }
