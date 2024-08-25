@@ -9,6 +9,12 @@
 ### Project ###
 !/Readme.md
 !/lib
+## platform ##
+#!/windows
+!/macos
+#!/linux
+#!/android
+#!/ios
 ## rust ##
 !/flutter_rust_bridge.yaml
 !/rust

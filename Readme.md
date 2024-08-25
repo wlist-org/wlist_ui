@@ -11,5 +11,5 @@ The ui part of wlist.
 5. Run `mkdir ./lib/generated/rust`.
 6. Prepare cargo tool: `cargo install cargo-expand`.
 7. Run `flutter_rust_bridge_codegen generate`.
-8. Run `flutter create --platforms=windows,macos,linux,android,ios .`.
+8. Run `flutter create --platforms=windows,linux,android,ios .`.
 9. Finish and enjoy it!
