@@ -9,11 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # rust
-  rust_lib_wlist_ui:
-    path: rust_builder
-  flutter_rust_bridge: 2.3.0
-  freezed_annotation: ^2.4.4
   # basic
   ## i18n
   flutter_localizations:
@@ -22,9 +17,11 @@ dependencies:
   window_manager: ^0.4.0
   ## toast
   toastification: ^2.1.0
-  # web
-  ## device_id
-  platform_device_id_plus: ^1.0.6
+  # rust
+  rust_lib_wlist_ui:
+    path: rust_builder
+  flutter_rust_bridge: 2.3.0
+  freezed_annotation: ^2.4.4
   ## storage
   shared_preferences: ^2.3.1
   path_provider: ^2.1.4

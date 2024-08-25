@@ -8,6 +8,7 @@ class InputTextStatus {
   }
 
   String get text => _status.controller.text;
+  set text(String text) => _status.controller.text = text;
   bool isError() => _status.isError();
 }
 

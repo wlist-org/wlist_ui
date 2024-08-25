@@ -6,6 +6,7 @@
 
 
   "boot": "Initializing...",
+  "network_error": "Network error.",
 
   "boot_check_version": "Loading...",
   "version_unavailable": "Current version ({version}) is no longer supported. Please update your app version.\n{url}",
@@ -25,5 +26,8 @@
   "login_passport_empty": "Require passport.",
   "login_password_empty": "Require password.",
   "login_error": "Passport or password is incorrect.",
-  "login_cached_password_mismatch": "Password mismatch, please login."
+  "login_cached_password_mismatch": "Password mismatch, please login.",
+
+
+  "boot_register": "Registering..."
 }
