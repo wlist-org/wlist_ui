@@ -28,5 +28,4 @@ chrono = "~0.4"
 indexmap = "^2.3"
 hashbrown = "~0.14"
 # core
-deadpool = "~0.12"
 either = "^1.13"

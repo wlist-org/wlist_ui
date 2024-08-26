@@ -64,7 +64,7 @@ class _BootPageState extends State<BootPage> {
     var cache = await getApplicationSupportDirectory(); // The native cache directory only contains support files now.
     await initialize(dataDirectory: data.path, cacheDirectory: cache.path);
     setState(() => text = S.of(context).boot_check_version);
-    var version;
+    FVersionState version;
     try {
       version = await checkVersion();
     } on UniverseError catch (e) {
@@ -76,6 +76,7 @@ class _BootPageState extends State<BootPage> {
             autoCloseDuration: toastShortTime,
           );
         }
+        // TODO: offline mode
         version = FVersionState.unavailable;
       } else {
         rethrow;

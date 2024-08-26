@@ -8,37 +8,25 @@ pub mod refresh;
 pub mod trash;
 
 #[flutter_rust_bridge::frb(opaque)]
+#[derive(Clone)]
 pub struct WlistClientManager {
-    pool: deadpool::managed::Pool<wlist_native::core::client::WlistClientManager<String>>,
-}
-
-#[flutter_rust_bridge::frb(opaque)]
-pub struct WlistClient {
-    client: deadpool::managed::Object<wlist_native::core::client::WlistClientManager<String>>,
+    manager: wlist_native::core::client::WlistClientManager<String>,
 }
 
 impl WlistClientManager {
     pub async fn connect(addr: String) -> Result<Self, UniverseError> {
-        let pool = wlist_native::core::client::WlistClientManager::new(addr).await?;
-        Ok(Self { pool })
-    }
-
-    pub async fn get(&self) -> Result<WlistClient, UniverseError> {
-        let client = self.pool.get().await.map_err(anyhow::Error::from)?;
-        Ok(WlistClient { client })
-    }
-}
-
-impl WlistClient {
-    fn inner(&mut self) -> &mut wlist_native::core::client::WlistClient {
-        &mut self.client
+        let manager = wlist_native::core::client::WlistClientManager::new(addr).await?;
+        Ok(Self { manager })
     }
 }
 
 macro_rules! define_func {
     ($func: ident($($para: ident: $ty: ty),*) -> $res: ty = $target: expr) => {
-        pub async fn $func(mut client: Option<$crate::api::core::client::WlistClient>, $($para: $ty),*) -> Result<$res, $crate::api::common::exceptions::UniverseError> {
-            $target(&mut client.as_mut().map(|c| c.inner()), $($para.into()),*).await.map(Into::into).map_err(Into::into)
+        pub async fn $func(client: Option<$crate::api::core::client::WlistClientManager>, $($para: $ty),*) -> Result<$res, $crate::api::common::exceptions::UniverseError> {
+            let mut client = match &client {
+                None => None, Some(manager) => Some(manager.manager.get().await?)
+            };
+            $target(&mut client.as_mut(), $($para.into()),*).await.map(Into::into).map_err(Into::into)
         }
     };
 }
