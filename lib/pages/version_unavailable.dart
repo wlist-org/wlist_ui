@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
-import 'package:wlist_ui/main.dart';
 import 'package:wlist_ui/utils/utils.dart';
 
 import '../generated/l10n.dart';
@@ -9,9 +7,7 @@ class VersionUnavailablePage extends StatelessWidget {
   const VersionUnavailablePage({super.key});
 
   void initWindow() {
-    if (isDesktop) {
-      windowManager.setMinimumSize(const Size(400, 200));
-    }
+    setWindowSize(min: const Size(400, 200));
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wlist_ui/utils/utils.dart';
 
 class InputTextStatus {
   _InputTextboxState? _value;
@@ -55,7 +56,7 @@ class _InputTextboxState extends State<InputTextbox> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: widget.backgroundColor ?? (Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black),
+      color: widget.backgroundColor ?? themeWhite(context),
       borderRadius: BorderRadius.circular(10),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),

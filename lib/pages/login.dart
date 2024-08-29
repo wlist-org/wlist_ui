@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wlist_ui/main.dart';
-import 'package:wlist_ui/widgets/input_textbox.dart';
 import 'package:wlist_ui/utils/page_margin.dart';
+import 'package:wlist_ui/utils/widgets/input_textbox.dart';
 
 import '../generated/l10n.dart';
 
@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).canvasColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:toastification/toastification.dart';
-import 'package:window_manager/window_manager.dart';
-import 'package:wlist_ui/main.dart';
 import 'package:wlist_ui/utils/device_id.dart';
 import 'package:wlist_ui/utils/utils.dart';
-import 'package:wlist_ui/widgets/loading_text.dart';
+import 'package:wlist_ui/utils/widgets/loading_text.dart';
 
 import '../generated/l10n.dart';
 import '../generated/rust/api/common.dart';
@@ -21,10 +19,7 @@ class BootPage extends StatefulWidget {
   const BootPage({super.key});
 
   void initWindow() {
-    if (isDesktop) {
-      windowManager.setMinimumSize(const Size(300, 400));
-      windowManager.setSize(const Size(480, 600));
-    }
+    setWindowSize(min: const Size(300, 400), current: const Size(480, 600));
   }
 
   @override
@@ -73,7 +68,7 @@ class _BootPageState extends State<BootPage> {
           toastification.show(
             context: context,
             title: Text(S.of(context).network_error),
-            autoCloseDuration: toastShortTime,
+            autoCloseDuration: toastLongTime,
           );
         }
         // TODO: offline mode

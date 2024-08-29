@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
-import 'package:wlist_ui/main.dart';
+import 'package:wlist_ui/utils/page_margin.dart';
+import 'package:wlist_ui/utils/utils.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   void initWindow() {
-    if (isDesktop) {
-      windowManager.setMinimumSize(const Size(300, 400)); // TODO: windows size
-      windowManager.setSize(const Size(800, 600), animate: true);
-    }
+    setWindowSize(
+      min: const Size(600, 400), // TODO: min windows size
+      current: const Size(1920, 1080),
+    );
   }
 
   @override
