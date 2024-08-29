@@ -1,8 +1,11 @@
 use std::sync::Arc;
+
 use wlist_native::common::data::storages::StorageType;
+
 use crate::api::common::o2o;
 
 #[flutter_rust_bridge::frb(opaque)]
+/// The refresh token.
 #[derive(o2o::o2o)]
 #[map_owned(wlist_native::common::data::files::tokens::RefreshToken)]
 pub struct FRefreshToken {
@@ -11,6 +14,7 @@ pub struct FRefreshToken {
 }
 
 #[flutter_rust_bridge::frb(opaque)]
+/// The download token.
 #[derive(o2o::o2o)]
 #[map_owned(wlist_native::common::data::files::tokens::DownloadToken)]
 pub struct FDownloadToken {
@@ -20,6 +24,7 @@ pub struct FDownloadToken {
 }
 
 #[flutter_rust_bridge::frb(opaque)]
+/// The upload token.
 #[derive(o2o::o2o)]
 #[map_owned(wlist_native::common::data::files::tokens::UploadToken)]
 pub struct FUploadToken {
