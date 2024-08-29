@@ -29,3 +29,5 @@ indexmap = "^2.3"
 hashbrown = "~0.14"
 # core
 either = "^1.13"
+tokio = "^1.39"
+bytes = "^1.7"

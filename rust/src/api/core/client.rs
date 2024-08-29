@@ -1,10 +1,12 @@
+use tokio::sync::broadcast::Sender;
 use crate::api::common::exceptions::UniverseError;
 
 pub mod users;
 pub mod storages;
 pub mod files;
 pub mod refresh;
-
+pub mod download;
+pub mod upload;
 pub mod trash;
 
 #[flutter_rust_bridge::frb(opaque)]
@@ -31,3 +33,19 @@ macro_rules! define_func {
     };
 }
 use define_func;
+
+#[flutter_rust_bridge::frb(opaque)]
+#[derive(Clone)]
+pub struct PauseController {
+    sender: Sender<bool>,
+}
+
+impl PauseController {
+    pub fn pause(&self) {
+        let _ = self.sender.send(false);
+    }
+
+    pub fn resume(&self) {
+        let _ = self.sender.send(true);
+    }
+}
