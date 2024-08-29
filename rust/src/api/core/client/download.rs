@@ -13,7 +13,7 @@ define_func!(download_finish(token: DownloadToken) -> () = wlist_native::core::c
 /// flutter_rust_bridge:ignore
 mod internal {
     use bytes::BufMut;
-    use tokio::sync::broadcast::Receiver;
+    use tokio::sync::watch::Receiver;
     use super::*;
 
     define_func!(download_stream(token: DownloadToken, id: u64, start: u64, buffer: &mut impl BufMut, control: Receiver<bool>) -> () = wlist_native::core::client::download::download_stream);

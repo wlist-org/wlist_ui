@@ -1,4 +1,4 @@
-use tokio::sync::broadcast::Sender;
+use tokio::sync::watch::Sender;
 use crate::api::common::exceptions::UniverseError;
 
 pub mod users;
@@ -41,6 +41,10 @@ pub struct PauseController {
 }
 
 impl PauseController {
+    pub fn new() -> Self {
+        Self { sender: tokio::sync::watch::channel(true).0 }
+    }
+
     pub fn pause(&self) {
         let _ = self.sender.send(false);
     }

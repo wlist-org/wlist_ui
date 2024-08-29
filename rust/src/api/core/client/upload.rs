@@ -17,7 +17,7 @@ define_func!(upload_finish(token: UploadToken) -> () = wlist_native::core::clien
 /// flutter_rust_bridge:ignore
 mod internal {
     use bytes::Bytes;
-    use tokio::sync::broadcast::Receiver;
+    use tokio::sync::watch::Receiver;
     use super::*;
 
     define_func!(upload_stream(token: UploadToken, id: u64, buffer: &mut Bytes, control: Receiver<bool>) -> () = wlist_native::core::client::upload::upload_stream);
