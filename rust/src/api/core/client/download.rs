@@ -61,3 +61,78 @@ pub async fn download_stream(client: Option<WlistClientManager>, token: Download
     let mut buffer = unsafe { wlist_native::core::helper::buffer::WriteBuffer::new(buffer, buffer_size) };
     internal::download_stream(client, token, id, start, &mut buffer, control.sender.subscribe()).await
 }
+
+
+#[flutter_rust_bridge::frb(opaque)]
+/// The internal resource of the allocated buffer.
+pub struct AllocatedBufferResource {
+    buffer: Vec<u8>,
+}
+
+/// Allocate a buffer in memory.
+///
+///
+/// len: the length of the buffer.
+///
+/// returns: a pointer to the buffer and the internal resource.
+pub fn allocate_buffer(len: usize) -> (*mut u8, AllocatedBufferResource) {
+    let mut buffer = Vec::with_capacity(len);
+    let ptr = buffer.as_mut_ptr();
+    (ptr, AllocatedBufferResource { buffer })
+}
+
+/// Drop the buffer in memory.
+pub fn drop_buffer(resource: AllocatedBufferResource) {
+    drop(resource.buffer);
+}
+
+#[flutter_rust_bridge::frb(opaque)]
+/// The internal resource of the mapped buffer.
+pub struct MappedBufferResource {
+    file: File,
+    mmap: memmap2::MmapRaw,
+}
+
+/// Map the buffer in file.
+///
+/// You should ensure the file len is larger than `offset + len - 1`.
+///
+///
+/// file: the path of the file.
+///
+/// offset: the offset of the file to map.
+///
+/// len: the length of the buffer.
+///
+/// returns: a pointer to the buffer and the internal resource.
+pub fn map_buffer(file: String, offset: u64, len: usize) -> Result<(*mut u8, MappedBufferResource), UniverseError> {
+    let file = File::options().read(true).write(true).create(true).open(&file).map_err(anyhow::Error::from)?;
+    let mmap = memmap2::MmapOptions::new()
+        .offset(offset).len(len)
+        .map_raw(&file).map_err(anyhow::Error::from)?;
+    Ok((mmap.as_mut_ptr(), MappedBufferResource { file, mmap }))
+}
+
+/// Drop the mapped buffer from file.
+///
+/// After this function returns, all content of the buffer will be flushed in the file.
+pub fn drop_buffer_mapped(resource: MappedBufferResource) -> Result<(), UniverseError> {
+    resource.mmap.flush().map_err(anyhow::Error::from)?;
+    drop(resource.mmap);
+    drop(resource.file);
+    Ok(())
+}
+
+
+/// Read the buffer.
+///
+/// Same as [clone_buffer](crate::api::core::client::upload::clone_buffer),
+/// but provide a `*mut u8` version.
+///
+///
+/// ptr: the pointer to the buffer.
+///
+/// len: the length of the buffer.
+pub fn clone_buffer(ptr: *mut u8, len: usize) -> Vec<u8> {
+    unsafe { std::slice::from_raw_parts_mut(ptr, len) }.to_vec()
+}

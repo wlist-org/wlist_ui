@@ -87,3 +87,70 @@ pub async fn upload_stream(client: Option<WlistClientManager>, token: UploadToke
     let mut buffer = unsafe { wlist_native::core::helper::buffer::new_read_buffer(buffer, buffer_size) };
     internal::upload_stream(client, token, id, &mut buffer, control.sender.subscribe()).await
 }
+
+
+#[flutter_rust_bridge::frb(opaque)]
+/// The internal resource of the pointed buffer.
+pub struct PointedBufferResource {
+    buffer: Vec<u8>,
+}
+
+/// Point a buffer from memory with copy.
+///
+/// returns a pointer to the buffer, the length of the buffer, and the internal resource.
+pub fn point_buffer(buffer: Vec<u8>) -> (*const u8, usize, PointedBufferResource) {
+    (buffer.as_ptr(), buffer.len(), PointedBufferResource { buffer })
+}
+
+/// Drop the pointed buffer.
+pub fn drop_buffer(resource: PointedBufferResource) {
+    drop(resource.buffer);
+}
+
+#[flutter_rust_bridge::frb(opaque)]
+/// The internal resource of the read-only mapped buffer.
+pub struct MappedBufferResource {
+    file: File,
+    mmap: memmap2::MmapRaw,
+}
+
+/// Map the read-only buffer in file.
+///
+/// You should ensure the file len is larger than `offset + len - 1`.
+///
+///
+/// file: the path of the file.
+///
+/// offset: the offset of the file to map.
+///
+/// len: the length of the buffer.
+///
+/// returns: a pointer to the read-only buffer and the internal resource.
+pub fn map_buffer(file: String, offset: u64, len: usize) -> Result<(*const u8, MappedBufferResource), UniverseError> {
+    let file = File::options().read(true).open(&file).map_err(anyhow::Error::from)?;
+    let mmap = memmap2::MmapOptions::new()
+        .offset(offset).len(len)
+        .map_raw_read_only(&file).map_err(anyhow::Error::from)?;
+    Ok((mmap.as_ptr(), MappedBufferResource { file, mmap }))
+}
+
+/// Drop the mapped read-only buffer from file.
+pub fn drop_buffer_mapped(resource: MappedBufferResource) -> Result<(), UniverseError> {
+    drop(resource.mmap);
+    drop(resource.file);
+    Ok(())
+}
+
+
+/// Read the buffer.
+///
+/// Same as [clone_buffer](crate::api::core::client::download::clone_buffer),
+/// but provide a `*const u8` version.
+///
+///
+/// ptr: the pointer to the buffer.
+///
+/// len: the length of the buffer.
+pub fn clone_buffer(ptr: *const u8, len: usize) -> Vec<u8> {
+    unsafe { std::slice::from_raw_parts(ptr, len) }.to_vec()
+}
