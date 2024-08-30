@@ -17,7 +17,7 @@ macro_rules! define_exception {
         #[derive(o2o::o2o)]
         #[map_owned(::wlist_native::common::exceptions::$origin)]
         pub struct $exception {
-            $($(#[$o2o])* $field: $ty),+
+            $($(#[$o2o])* pub $field: $ty),+
         }
     };
 }

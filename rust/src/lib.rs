@@ -1,7 +1,6 @@
 pub mod api;
 
 mod frb_generated;
-#[allow(unused_imports)]
 mod fix_frb_generated {
     pub use super::api::common::data::*;
     pub use super::api::common::data::storages::*;
@@ -16,5 +15,6 @@ mod fix_frb_generated {
     pub use super::api::common::data::trashes::*;
     pub use super::api::common::data::trashes::information::*;
     pub use super::api::common::data::trashes::options::*;
+    pub use super::api::common::exceptions::*;
 }
 use fix_frb_generated::*;
