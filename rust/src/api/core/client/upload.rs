@@ -109,7 +109,7 @@ pub fn drop_buffer(resource: PointedBufferResource) {
 
 #[flutter_rust_bridge::frb(opaque)]
 /// The internal resource of the read-only mapped buffer.
-pub struct MappedBufferResource {
+pub struct MappedReadonlyBufferResource {
     file: File,
     mmap: memmap2::MmapRaw,
 }
@@ -126,16 +126,16 @@ pub struct MappedBufferResource {
 /// len: the length of the buffer.
 ///
 /// returns: a pointer to the read-only buffer and the internal resource.
-pub fn map_buffer(file: String, offset: u64, len: usize) -> Result<(*const u8, MappedBufferResource), UniverseError> {
+pub fn map_buffer(file: String, offset: u64, len: usize) -> Result<(*const u8, MappedReadonlyBufferResource), UniverseError> {
     let file = File::options().read(true).open(&file).map_err(anyhow::Error::from)?;
     let mmap = memmap2::MmapOptions::new()
         .offset(offset).len(len)
         .map_raw_read_only(&file).map_err(anyhow::Error::from)?;
-    Ok((mmap.as_ptr(), MappedBufferResource { file, mmap }))
+    Ok((mmap.as_ptr(), MappedReadonlyBufferResource { file, mmap }))
 }
 
 /// Drop the mapped read-only buffer from file.
-pub fn drop_buffer_mapped(resource: MappedBufferResource) -> Result<(), UniverseError> {
+pub fn drop_buffer_mapped(resource: MappedReadonlyBufferResource) -> Result<(), UniverseError> {
     drop(resource.mmap);
     drop(resource.file);
     Ok(())

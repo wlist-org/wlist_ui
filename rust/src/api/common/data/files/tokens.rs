@@ -2,8 +2,6 @@ use std::sync::Arc;
 
 use wlist_native::common::data::storages::StorageType;
 
-use crate::api::common::o2o;
-
 #[flutter_rust_bridge::frb(opaque)]
 /// The refresh token.
 #[derive(o2o::o2o)]
