@@ -80,6 +80,7 @@ pub struct FDownloadChunkInformation {
 /// The information of download chunks.
 ///
 /// Ensured that the chunk bounds won't overlap.
+/// And the chunks cover the entire file.
 #[derive(o2o::o2o)]
 #[map_owned(wlist_native::common::data::files::information::DownloadInformation)]
 pub struct FDownloadInformation {

@@ -25,7 +25,6 @@ macro_rules! define_exception {
 define_exception!(FUnavailableApiVersionError UnavailableApiVersionError());
 define_exception!(FMatchFrequencyControlError MatchFrequencyControlError());
 define_exception!(FIncorrectArgumentError IncorrectArgumentError(#[map(o2o::map(~))] e: String));
-define_exception!(FTooLargeDataError TooLargeDataError());
 define_exception!(FPasswordMismatchedError PasswordMismatchedError());
 define_exception!(FTokenExpiredError TokenExpiredError());
 
@@ -57,11 +56,6 @@ define_exception!(FFileTooLargeError FileTooLargeError(size: u64, max: Option<u6
 /// This is the universe error of all errors.
 #[flutter_rust_bridge::frb(non_opaque)]
 pub enum UniverseError {
-    /// Any IO error.
-    IO(Option<String>),
-    /// Any network error.
-    Network(String),
-
     // Api part
 
     /// Current version is unavailable.
@@ -72,9 +66,6 @@ pub enum UniverseError {
     /// Passed an incorrect argument.
     /// See docs of the function you used for more information.
     IncorrectArgumentError(FIncorrectArgumentError),
-    /// Some data to store exceeds the maximum size allowed. (e.g. filename too large)
-    /// See docs of the function you used for more information.
-    TooLargeDataError(FTooLargeDataError),
     /// Wrong userid or password in [core](crate::api::core::client::users::users_login) or [web](crate::api::web::account::login).
     PasswordMismatchedError(FPasswordMismatchedError),
     /// For web (not logged in) and core ([refresh token], [download token] and [upload token]).
@@ -103,6 +94,7 @@ pub enum UniverseError {
 
     /// The operation is complex. (Complex means the operation cannot be done in one step.)
     /// This means you need to break down this operation into small pieces.
+    /// UI should raise a dialog to ask user to confirm at first time.
     /// See docs of the function you used for more information.
     ComplexOperationError(FComplexOperationError),
     /// File duplicate and policy is [Error](crate::api::common::data::files::options::FDuplicate::Error)
@@ -133,6 +125,12 @@ pub enum UniverseError {
     /// The maximum single file size limit for the storage is exceeded.
     FileTooLargeError(FFileTooLargeError),
 
+    // Other part
+
+    /// Any IO error.
+    IO(Option<String>),
+    /// Any network error.
+    Network(String),
     /// Any other error.
     Other(String),
 }
@@ -146,12 +144,10 @@ impl From<anyhow::Error> for UniverseError {
 impl From<wlist_native::common::exceptions::UniverseError> for UniverseError {
     fn from(value: wlist_native::common::exceptions::UniverseError) -> UniverseError {
         match value {
-            wlist_native::common::exceptions::UniverseError::IO(_f0, f1, ) => UniverseError::IO(f1),
-            wlist_native::common::exceptions::UniverseError::Network(f0, ) => UniverseError::Network(f0),
             wlist_native::common::exceptions::UniverseError::UnavailableApiVersionError(f0, ) => UniverseError::UnavailableApiVersionError(f0.into()),
             wlist_native::common::exceptions::UniverseError::MatchFrequencyControlError(f0, ) => UniverseError::MatchFrequencyControlError(f0.into()),
             wlist_native::common::exceptions::UniverseError::IncorrectArgumentError(f0, ) => UniverseError::IncorrectArgumentError(f0.into()),
-            wlist_native::common::exceptions::UniverseError::TooLargeDataError(f0, ) => UniverseError::TooLargeDataError(f0.into()),
+            wlist_native::common::exceptions::UniverseError::TooLargeDataError(_f0, ) => UniverseError::IncorrectArgumentError(FIncorrectArgumentError { e: "too large data".to_string() }),
             wlist_native::common::exceptions::UniverseError::PasswordMismatchedError(f0, ) => UniverseError::PasswordMismatchedError(f0.into()),
             wlist_native::common::exceptions::UniverseError::TokenExpiredError(f0, ) => UniverseError::TokenExpiredError(f0.into()),
             wlist_native::common::exceptions::UniverseError::InvalidStorageConfigError(f0, ) => UniverseError::InvalidStorageConfigError(f0.into()),
@@ -172,6 +168,8 @@ impl From<wlist_native::common::exceptions::UniverseError> for UniverseError {
             wlist_native::common::exceptions::UniverseError::SpaceNotEnoughError(f0, ) => UniverseError::SpaceNotEnoughError(f0.into()),
             wlist_native::common::exceptions::UniverseError::FlowNotEnoughError(f0, ) => UniverseError::FlowNotEnoughError(f0.into()),
             wlist_native::common::exceptions::UniverseError::FileTooLargeError(f0, ) => UniverseError::FileTooLargeError(f0.into()),
+            wlist_native::common::exceptions::UniverseError::IO(_f0, f1, ) => UniverseError::IO(f1),
+            wlist_native::common::exceptions::UniverseError::Network(f0, ) => UniverseError::Network(f0),
             wlist_native::common::exceptions::UniverseError::Other(f0, ) => UniverseError::Other(f0),
             _ => unreachable!(),
         }
