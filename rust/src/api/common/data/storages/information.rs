@@ -41,10 +41,10 @@ pub struct FStorageDetailsInformation {
     pub indexed_size: u64,
     /// The storage total size, both used and not used. (null means unknown.)
     pub total_size: Option<u64>,
-    /// The usage of upload flow. (null means unknown.)
+    /// The usage of upload flow. (null means unknown/infinity.)
     #[map(o2o::map_option(~))]
     pub upload_flow: Option<FStorageFlow>,
-    /// The usage of download flow. (null means unknown.)
+    /// The usage of download flow. (null means unknown/infinity.)
     #[map(o2o::map_option(~))]
     pub download_flow: Option<FStorageFlow>,
     /// The maximum size of a file.

@@ -147,7 +147,6 @@ impl From<wlist_native::common::exceptions::UniverseError> for UniverseError {
             wlist_native::common::exceptions::UniverseError::UnavailableApiVersionError(f0, ) => UniverseError::UnavailableApiVersionError(f0.into()),
             wlist_native::common::exceptions::UniverseError::MatchFrequencyControlError(f0, ) => UniverseError::MatchFrequencyControlError(f0.into()),
             wlist_native::common::exceptions::UniverseError::IncorrectArgumentError(f0, ) => UniverseError::IncorrectArgumentError(f0.into()),
-            wlist_native::common::exceptions::UniverseError::TooLargeDataError(_f0, ) => UniverseError::IncorrectArgumentError(FIncorrectArgumentError { e: "too large data".to_string() }),
             wlist_native::common::exceptions::UniverseError::PasswordMismatchedError(f0, ) => UniverseError::PasswordMismatchedError(f0.into()),
             wlist_native::common::exceptions::UniverseError::TokenExpiredError(f0, ) => UniverseError::TokenExpiredError(f0.into()),
             wlist_native::common::exceptions::UniverseError::InvalidStorageConfigError(f0, ) => UniverseError::InvalidStorageConfigError(f0.into()),

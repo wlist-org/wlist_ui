@@ -13,3 +13,10 @@ The ui part of wlist.
 7. Run `flutter_rust_bridge_codegen generate`.
 8. Run `flutter create --platforms=windows,linux,android,ios .`.
 9. Finish and enjoy it!
+
+## Notice
+
+Compiling to `macos` or `ios`: `Undefined symbols for architecture ...`,
+like this [example](docs/undefined_symbols.md).
+
+See this [doc](https://cjycode.com/flutter_rust_bridge/manual/troubleshooting#linker-complains-undefined-symbols) for help.

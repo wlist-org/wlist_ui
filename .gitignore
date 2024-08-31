@@ -7,8 +7,9 @@
 !/pubspec.lock
 
 ### Project ###
-!/Readme.md
 !/lib
+!/Readme.md
+!/docs
 ## platform ##
 #!/windows
 !/macos

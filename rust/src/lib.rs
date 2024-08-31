@@ -1,6 +1,7 @@
 pub mod api;
 
 mod frb_generated;
+#[allow(unused_imports)]
 mod fix_frb_generated {
     pub use super::api::common::data::*;
     pub use super::api::common::data::storages::*;
