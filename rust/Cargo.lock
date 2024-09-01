@@ -1433,6 +1433,8 @@ dependencies = [
 [[package]]
 name = "libsimple"
 version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f2d40cc1fb1f7b9b42280553689c3c8934642972d1ae4c85baa85f1a0a5c26d1"
 dependencies = [
  "cc",
  "rusqlite",
