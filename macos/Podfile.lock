@@ -38,7 +38,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  rust_lib_wlist_ui: 19c9148c4cdeba280b08193850f84d4cad76c6ac
+  rust_lib_wlist_ui: f0ce585d26689d0ea8dc63d28fa3076ee3f94888
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
