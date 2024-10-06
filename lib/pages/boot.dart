@@ -90,7 +90,7 @@ class _BootPageState extends State<BootPage> {
         await login(userId: userId, password: password);
         target = "/main";
         return;
-      } on UniverseError catch (e) {
+      } on UniverseError {
         // TODO
         if (context.mounted) {
           toastification.show(

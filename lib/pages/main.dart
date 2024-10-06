@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wlist_ui/utils/page_margin.dart';
 import 'package:wlist_ui/utils/utils.dart';
 
 class MainPage extends StatefulWidget {
@@ -19,8 +18,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: const Center() // TODO
+    return const Scaffold(
+        body: Center() // TODO
     );
   }
 }
